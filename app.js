@@ -17,7 +17,7 @@ const app = express();
 // Security middlewares
 app.use(helmet({ crossOriginResourcePolicy: false }));
 app.use(cors({
-  origin: ['http://localhost:3001', 'http://localhost:3000'],
+  origin: ['http://localhost:3001', 'http://localhost:3000', 'https://xebia-internship-fh43.vercel.app'],
   credentials: true
 }));
 
