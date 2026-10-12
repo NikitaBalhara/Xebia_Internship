@@ -13,6 +13,7 @@ dotenv.config();
 require('./config/db')();
 
 const app = express();
+app.set('trust proxy', 1);
 
 // Security middlewares
 app.use(helmet({ crossOriginResourcePolicy: false }));
