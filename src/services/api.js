@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const API = axios.create({
-  baseURL: 'http://localhost:5000',
+  baseURL: 'https://careergenie-backend-v8qq.onrender.com',
 })
 
 // Inject JWT token automatically in Bearer header
