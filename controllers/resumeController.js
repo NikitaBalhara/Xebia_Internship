@@ -1,16 +1,19 @@
 const jwt = require('jsonwebtoken');
 
 exports.uploadResume = async (req, res) => {
-  try {
-    // Token se user info nikalo
-    const token = req.headers.authorization?.split(' ')[1]
-    let userName = "User"
-    let userEmail = "—"
+  let userName = "User";
+  let userEmail = "—";
 
+  try {
+    const token = req.headers.authorization?.split(' ')[1];
     if (token) {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET || "super_secret_career_genie_key")
-      userName = decoded.name || decoded.email?.split('@')[0] || "User"
-      userEmail = decoded.email || "—"
+      try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || "super_secret_career_genie_key");
+        userName = decoded.name || decoded.email?.split('@')[0] || "User";
+        userEmail = decoded.email || "—";
+      } catch (e) {
+        console.log("Token check failed:", e.message);
+      }
     }
 
     return res.status(200).json({
@@ -32,6 +35,7 @@ exports.uploadResume = async (req, res) => {
       }
     });
   } catch (error) {
+    console.log("Upload error:", error.message);
     return res.status(500).json({ success: false, message: "Error parsing resume" });
   }
 };
